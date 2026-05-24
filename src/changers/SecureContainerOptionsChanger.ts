@@ -1,29 +1,22 @@
 import { DependencyContainer } from "tsyringe"
 import type { SecureContainerOptions } from "../types"
-import { DatabaseServer } from "@spt/servers/DatabaseServer"
 import { ItemTpl } from "@spt/models/enums/ItemTpl"
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem"
 import { Traders } from "@spt/models/enums/Traders"
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables"
 import { containerRecipes } from "../assets/recipes"
-import { PrefixLogger } from "../util/PrefixLogger"
 import { ConfigServer } from "@spt/servers/ConfigServer"
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig"
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes"
+import { BaseChanger } from "./BaseChanger"
 
-export class SecureContainerOptionsChanger {
-	private logger: PrefixLogger
-	private tables: IDatabaseTables
+export class SecureContainerOptionsChanger extends BaseChanger {
 	private items: Record<string, ITemplateItem> | undefined
 	private hideoutConfig: IHideoutConfig
 
 	constructor(container: DependencyContainer) {
-		this.logger = PrefixLogger.getInstance()
-		const databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		this.tables = databaseServer.getTables()
+		super(container)
 		this.items = this.tables.templates?.items
-		const configServer = container.resolve<ConfigServer>("ConfigServer")
-		this.hideoutConfig = configServer.getConfig<IHideoutConfig>(ConfigTypes.HIDEOUT)
+		this.hideoutConfig = container.resolve<ConfigServer>("ConfigServer").getConfig<IHideoutConfig>(ConfigTypes.HIDEOUT)
 	}
 
 	public apply(config: SecureContainerOptions) {

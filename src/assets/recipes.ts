@@ -540,41 +540,6 @@ export const L1: IHideoutProduction = {
 	productionLimitCount: 0,
 	isCodeProduction: false,
 }
-export const P22: IHideoutProduction = {
-	_id: "63da4dbee8fa73e225000010",
-
-	areaType: 7,
-	requirements: [
-		{ areaType: 7, requiredLevel: 3, type: "Area" },
-		{
-			templateId: "5c10c8fd86f7743d7d706df3",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "59e361e886f774176c10a2a5",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "57505f6224597709a92585a9",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-	],
-	productionTime: 31,
-	endProduct: "5ed515c8d380ab312177c0fa",
-	isEncoded: false,
-	locked: false,
-	needFuelForAllProductionTime: false,
-	continuous: false,
-	count: 2,
-	productionLimitCount: 0,
-	isCodeProduction: false,
-}
 export const Trimadol: IHideoutProduction = {
 	_id: "63da4dbee8fa73e225000011",
 
@@ -633,41 +598,6 @@ export const Meldonin: IHideoutProduction = {
 	productionLimitCount: 0,
 	isCodeProduction: false,
 }
-export const PNB: IHideoutProduction = {
-	_id: "63da4dbee8fa73e225000013",
-
-	areaType: 7,
-	requirements: [
-		{ areaType: 7, requiredLevel: 3, type: "Area" },
-		{
-			templateId: "5c10c8fd86f7743d7d706df3",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "59e361e886f774176c10a2a5",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "57505f6224597709a92585a9",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-	],
-	productionTime: 31,
-	endProduct: "5ed515c8d380ab312177c0fa",
-	isEncoded: false,
-	locked: false,
-	needFuelForAllProductionTime: false,
-	continuous: false,
-	count: 2,
-	productionLimitCount: 0,
-	isCodeProduction: false,
-}
 export const Perfotran: IHideoutProduction = {
 	_id: "63da4dbee8fa73e225000014",
 
@@ -699,75 +629,6 @@ export const Perfotran: IHideoutProduction = {
 	isEncoded: false,
 	locked: false,
 	needFuelForAllProductionTime: false,
-	count: 2,
-	productionLimitCount: 0,
-	isCodeProduction: false,
-}
-export const SJ9: IHideoutProduction = {
-	_id: "63da4dbee8fa73e225000015",
-
-	areaType: 7,
-	requirements: [
-		{ areaType: 7, requiredLevel: 3, type: "Area" },
-		{
-			templateId: "5c10c8fd86f7743d7d706df3",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "59e361e886f774176c10a2a5",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "57505f6224597709a92585a9",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-	],
-	productionTime: 31,
-	endProduct: "5ed515c8d380ab312177c0fa",
-	continuous: false,
-	isEncoded: false,
-	locked: false,
-	needFuelForAllProductionTime: false,
-	count: 2,
-	productionLimitCount: 0,
-	isCodeProduction: false,
-}
-export const SJ12: IHideoutProduction = {
-	_id: "63da4dbee8fa73e225000016",
-	areaType: 7,
-	requirements: [
-		{ areaType: 7, requiredLevel: 3, type: "Area" },
-		{
-			templateId: "5c10c8fd86f7743d7d706df3",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "59e361e886f774176c10a2a5",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-		{
-			templateId: "57505f6224597709a92585a9",
-			count: 1,
-			isFunctional: false,
-			type: "Item",
-		},
-	],
-	productionTime: 31,
-	endProduct: "5ed515c8d380ab312177c0fa",
-	isEncoded: false,
-	locked: false,
-	needFuelForAllProductionTime: false,
-	continuous: false,
 	count: 2,
 	productionLimitCount: 0,
 	isCodeProduction: false,

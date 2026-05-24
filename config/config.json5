@@ -1,65 +1,65 @@
 {
 	general: {
-		enabled: true, // Enable or disable the mod
-		debug: false, // Enable debugging mode currently does nothing
+		enabled: true, // 启用或禁用本MOD
+		debug: false, // 调试模式（当前未实现实际功能）
 	},
 	secureContainersOptions: {
-		// Master toggle for all secure containers options below. Inspired by Trap's Progressive Stash, redone from scratch. Disabled by default to not confuse existing profiles.
-		enabled: true, // Enable secure containers changes
+		// 安全容器选项总开关。灵感来自 Trap's Progressive Stash，从头重做。默认关闭以免影响已有存档。
+		enabled: true, // 启用安全容器修改
 		progressiveContainers: {
-			// Start your NEW profile with just a Waist Pouch 2x2 container, and work your way up all the way up to Gamma with insanely complex and expensive, but fun and fair custom container crafts.
+			// 新存档从 2x2 腰包开始，通过复杂昂贵但公平有趣的自定义容器制作逐步升级到 Gamma。
 			enabled: true,
-			// Collector quest is startable just at level 10. No longer you need all other quests done, only items. BUT, don't think it's going to be easy, there is an additional end-game grind ending condition waiting for you. Should be much more fun then vanilla 'grind to level 55, duh'.
+			// 收藏家任务 10 级即可接取。不再需要完成所有前置任务，只需要交物品。但别以为会很简单 —— 还有一个额外的终局肝度条件等着你。比原版"肝到 55 级"有趣多了。
 			collectorQuestRedone: true,
 		},
-		// Waist Pouch is 2x4, Alpha is now 3x3 (like EoD), Beta 3x4, Epsilon 3x5, Gamma 4x5, Kappa 5x5
+		// 腰包变为 2x4，Alpha 变为 3x3（等同 EoD 版），Beta 3x4，Epsilon 3x5，Gamma 4x5，Kappa 5x5
 		biggerContainers: true,
 	},
 	hideoutOptions: {
-		// Master toggle for all hideout options below.
+		// 藏身处选项总开关
 		enabled: true,
 		stashOptions: {
-			// Master toggle for all stash options below. Inspired by Trap's Progressive Stash.
+			// 仓库选项总开关。灵感来自 Trap's Progressive Stash。
 			enabled: true,
-			// Makes every new profile start with LVL1 stash
+			// 所有新存档从 1 级仓库开始
 			progressiveStash: true,
-			// Bigger stash option, from 28/38/48/68 to 50/100/150/200 lines.
+			// 扩大仓库容量，从 28/38/48/68 行提升至 50/100/150/200 行
 			biggerStash: true,
-			// Reduces ridiculous cash requirements for stage construction by a factor of 10
+			// 降低各阶段建造所需的现金需求，减少 10 倍
 			lessCurrencyForConstruction: true,
-			// Reduces loyalty level requirements for stage construction (Prapor, Ragman and Peacekeeper) by 1.
+			// 降低建造所需的商人忠诚度要求（Prapor、Ragman、Peacekeeper），各减 1 级
 			easierLoyalty: true,
 		},
 		hideoutContainers: {
 			enabled: true,
-			// Slightly buffs basic hideout containers: Medicine case 7x7 -> 10x10, Holodilnick 8x8 -> 10x10, Magazine case 7x7 -> 7x10, Item case 8x8 -> 10x10, Weapon case 5x10 -> 6x10, Keytool -> 5x5
+			// 小幅增强基础藏身处容器：药箱 7x7 -> 10x10，保温袋 8x8 -> 10x10，弹匣箱 7x7 -> 7x10，物品箱 8x8 -> 10x10，武器箱 5x10 -> 6x10，钥匙工具 -> 5x5
 			biggerHideoutContainers: true,
-			// Huge QoL buff to SICC case to make it actually not shit and a direct upgrade to Docs. And while we are here, allow it to hold keytools. It's an end-game item you cannot easily get on flea market with all other Softcore changes, so who cares. Allowed item list: Physical bitcoin, GP coin, Veritas guitar pick, Keycard holder case, Info, Key, Map, Money, Chain with Prokill medallion, Gold skull ring, Dogtag BEAR, Dogtag USEC, Secure Flash drive, Key tool.
+			// 大幅增强 SICC 包，使其真正成为文档包的升级替代品。同时允许 SICC 包放入钥匙工具。在 Softcore 的改动下这是终局物品，跳蚤市场很难买到，所以无所谓。允许的物品列表：比特币、GP 币、Veritas 吉他拨片、门禁卡包、信息、钥匙、地图、金钱、Prokill 奖章项链、黄金骷髅戒指、BEAR 狗牌、USEC 狗牌、安全闪存盘、钥匙工具
 			siccCaseBuff: true,
 		},
 		fasterBitcoinFarming: {
-			// Modifies base farming time and dramatically increases each GPU efficiency (from ~4% to 50%). It means that each additional GPU has a much greater impact on farming time and lvl3 bitcoin farm is very profitable and desirable. EG - Vanilla 1x GPU: 40h 17min, at 50x GPU: 13h 20min for 1 bitcoin. Default Softcore settings - 1x GPU: 20h 8min, 50x GPU: 0h 47min per bitcoin. Revert_Bitcoin_Price_To_v012 option sets Bitcoin price from 225k in 0.13 to 100k like in 0.12, this is intented way for balance.
+			// 修改基础挖矿时间并大幅提升每张 GPU 的效率（从约 4% 提升至 50%）。每张额外的 GPU 对挖矿速度的影响远超原版，3 级比特币矿场收益极高。原版对比 — 1 张 GPU：40 小时 17 分钟，50 张 GPU：13 小时 20 分钟/个。Softcore 默认设置 — 1 张 GPU：20 小时 8 分钟，50 张 GPU：47 分钟/个。setBitcoinPriceTo100k 选项将比特币价格从 0.13 版本的 225k 回调至 0.12 版本的 100k，这是预期平衡方式
 			enabled: true,
 			setBitcoinPriceTo100k: true,
 			baseBitcoinTimeMultiplier: 2.0,
 			gpuEfficiency: 0.5,
 		},
 		fasterCraftingTime: {
-			// Make all recipes except bitcoin, moonshine and purified water much faster.
+			// 大幅加快除比特币、私酒和纯净水外的所有配方制作速度
 			enabled: true,
 			baseCraftingTimeMultiplier: 100,
 			hideoutSkillExpFix: {
-				// Experimental experience per crafting time fix for Hideout Management skill.
+				// 实验性：针对藏身处管理技能的制作时间经验值修正
 				enabled: true,
 				hideoutSkillExpMultiplier: 10,
 			},
 			fasterMoonshineProduction: {
-				// Faster Moonshine production.
+				// 加快私酒生产
 				enabled: true,
 				baseCraftingTimeMultiplier: 10,
 			},
 			fasterPurifiedWaterProduction: {
-				// Faster Purified water production.
+				// 加快纯净水生产
 				enabled: true,
 				baseCraftingTimeMultiplier: 10,
 			},
@@ -69,128 +69,128 @@
 			},
 		},
 		fasterHideoutConstruction: {
-			// Make construction of the hideout stations much faster.
+			// 大幅加快藏身处设施建设速度
 			enabled: true,
 			hideoutConstructionTimeMultiplier: 100,
 		},
 		fuelConsumption: {
-			// To balance all the features above, fuel consumtion is increased. Now you will actually have to think about fuel economy. A little, but still.
+			// 为平衡以上加速功能，燃料消耗速率同步提升。现在你终于需要稍微考虑一下燃料经济了 —— 但真的只是稍微
 			enabled: true,
 			fuelConsumptionMultiplier: 10,
 		},
 		scavCaseOptions: {
-			// Master toggle for all scavcase features below.
+			// 食人魔箱子选项总开关
 			enabled: true,
-			// Recommendation: always enable. Think of it as SPT patch/fix for scavcase reward pool. Conservatively filters out a ton of the crap/useless items (eg <5k worth weapon-specific mods, ironsights, gas blocks, thread adapters, magazines, mounts etc) and OP/boss/developer/broken/quest/etc items from scav reward list. Makes sure you always get something of value and/or usable. Very safe to use, even if you don't want other features. This should also filter those items out from Fence.
+			// 建议始终开启。可视为针对食人魔箱子奖励池的 SPT 补丁/修复。保守过滤掉大量垃圾/无用物品（如价值低于 5k 的武器专用模组、机械瞄具、导气管、螺纹适配器、弹匣、镜架等）以及 OP/Boss/开发者/损坏/任务等物品，确保每次回收都能得到有价值或有用的东西。非常安全，即使不需要其他功能也推荐开启。此过滤同样适用于 Fence。
 			betterRewards: true,
 			fasterScavcase: {
-				// Faster scavcase launches, speed multiplier is below. x10 feels just right.
+				// 加快食人魔箱子回收速度，倍率如下。x10 感觉刚刚好
 				enabled: true,
 				speedMultiplier: 10,
 			},
-			// MAJOR rebalance of scav case rewards, FEELS great for single player experience. Changes all cash launches to alcohol for lore-friendly experience (Pevko -> Vodka -> Whiskey -> Moonshine -> Intel). Completely alters internal rewards tiers (common: under 20,000, rare: 20,000 to 60,000, superrare: 60,000 to 1,200,000), makes every launch tier valuable, fair and TARGETABLE for different item tiers. Pevko is very fast, gives 2 to 3 common items. Vodka gives 3 to 4 common items, with a chance to give 1 rare item. Whiskey gives 4 to 5 common items, and 1 to 2 rare items. Moonshine is fun for gambling, gives 2 to 3 commons, 0 to 3 rares, 1 to 2 superrare items. Intelligence folder is the most consistent, 2 to 3 commons, 3 to 5 rares and 0 to 1 superrares.
+			// 食人魔箱子奖励大重做，单人体验极佳。将所有现金回收改为酒精回收，更贴合世界观（Pevko 啤酒 -> 伏特加 -> 威士忌 -> Moonshine 私酒 -> 情报）。完全重做内部奖励分级（普通：20,000 以下，稀有：20,000-60,000，超稀有：60,000-1,200,000），让每种回收等级都有价值、公平且可针对性获取不同等级的物品。Pevko 啤酒最快，给 2-3 件普通物品。伏特加给 3-4 件普通物品，有概率额外 1 件稀有。威士忌给 4-5 件普通物品 + 1-2 件稀有。Moonshine 私酒适合赌博，给 1-3 件普通 + 0-3 件稀有 + 0-2 件超稀有。情报文件夹最稳定，给 2-3 件普通 + 3-5 件稀有 + 0-1 件超稀有。
 			rebalance: true,
 		},
-		// Allows to continue gym training with severe muscle pain at 25% efficiency.
+		// 允许在严重肌肉酸痛状态下继续健身训练（效率 75%）
 		allowGymTrainingWithMusclePain: true,
 	},
 	economyOptions: {
-		// Master toggle for all economy options below
+		// 经济选项总开关
 		enabled: true,
-		// Completely disable flea market for true HARDCORE experience. Still allows you to use the interface and see trader offers. Overwrites all other flea changes below.
+		// 完全禁用跳蚤市场，获得真正的硬核体验。仍然可以打开界面查看商人报价。开启后将覆盖下方所有跳蚤市场相关选项
 		disableFleaMarketCompletely: false,
 		priceRebalance: {
-			// CORE feature of this mod. Completly removes SPT flea prices snapshot from LIVE, and matches them to internal handbook/traders prices. Everything else is balanced around this. NOT recommended to disable.
+			// 本MOD的核心功能。彻底移除 SPT 从线上抓取的跳蚤价格快照，将所有物品价格与游戏内置手册/商人数据对齐。所有其他功能都基于此进行平衡。不建议关闭
 			enabled: true,
-			// Fix for importantt items like intel folder and military flash drive
+			// 修复重要物品的定价，如情报文件夹和军事U盘
 			itemFixes: true,
 		},
 		pacifistFleaMarket: {
-			// CORE feature of this mod. Only meds, barter items, food and info items can be bought on flea market. Uses hardcoded fleaWhitelist array as filter. NOT recommended to disable.
+			// 本MOD的核心功能。跳蚤市场上只能购买药品、以物易物类物品、食品和信息类物品。使用硬编码 fleaWhitelist 数组作为过滤器。不建议关闭
 			enabled: true,
-			// Small list of items used in crafts and trader barters is available on flea. Uses hardcoded itemWhitelist array.
+			// 少量用于制作和商人交易的物品可在跳蚤购买，使用硬编码 itemWhitelist 数组
 			whitelist: {
 				enabled: true,
 				priceMultiplier: 2,
 			},
 			questKeys: {
-				// Random-only QUEST keys are available on flea. Uses hardcoded questKeys array.
+				// 随机刷新类任务钥匙可在跳蚤购买，使用硬编码 questKeys 数组
 				enabled: true,
 				priceMultiplier: 2,
 			},
 			markedKeys: {
-				// Marked keys are available on flea market.
+				// 标记房间钥匙可在跳蚤市场购买
 				enabled: true,
 				priceMultiplier: 2,
 			},
 		},
 		barterEconomy: {
-			// CORE feature of this mod. Only allows to buy items on flea using other random FiR or crafted items. Uses hardcoded fleaBarterBlacklist array as filter for allowed items (meds, barter items, food and info items are enabled, exceptions are stimulants and fuel). NOT recommended to disable.
+			// 本MOD的核心功能。跳蚤市场上的物品只能用其他随机战局内发现或制作的物品交换购买。使用硬编码 fleaBarterBlacklist 数组作为过滤器（药品、以物易物类、食品和信息类允许，刺激剂和燃料除外）。不建议关闭
 			enabled: true,
-			// Allow small, random percentage of listings to be buyable for cash. 0 is true barter-only ecomnomy (except the cheapest items like AA battery, but this is a SPT-AKI limitation), I'd say this is a preferred way to play with this mod, but it might be a little too hard sometimes. 5% seems like a fine number that makes life just a little bit easier to avoid item deadlocks. Recommendation: 0 to 15.
+			// 允许少量随机比例的挂单可使用现金购买。0 表示纯粹以物易物经济（最便宜的物品如 AA 电池除外，这是 SPT-AKI 的限制）。这是本MOD推荐的游玩方式，但有时可能太难。5% 是个不错的数字，可以稍微降低物品死锁的概率。推荐范围：0-15
 			cashOffersPercentage: 0,
-			// ± percent of price variance between item listing and it's barter value. Bigger number - more wild and varied random trades, eg you can see a Defiblirator (that has 224k value) offered for a Lion (162k value) or a Tank Battery (330k value). This CORE feature makes the whole mod tick, that what makes it fun, random and engaging and stimulates hustling in a war broken society. You can get lucky, and get a great deal, or you might desperately need an item that is way overvalued but you only have the expensive item that it is asked for. Also more variance means it's easier to encounter an offer you have an item for and easier trades. Recomendation: 20-50
+			// 物品挂牌价格与交换价值之间的浮动百分比（±）。数值越大，交易越狂野多样 —— 例如你可能看到一个除颤器（价值 224k）被要求用狮子雕像（价值 162k）或坦克电池（价值 330k）交换。这是让整个MOD运转起来的核心功能，带来随机、有趣、引人入胜的体验，模拟战乱社会中的讨价还价。你可能走运捡到好交易，也可能急需某件物品但它被要求用你仅有的一件昂贵物品来交换。同时更大的浮动意味着更容易遇到你有对应物品的报价，交易更顺畅。推荐范围：20-50
 			barterPriceVariance: 50,
 			offerItemCount: {
-				// Max 20 different offers of an item. Too low of a number breaks SPT server for some reason, with constant client errors on completed trades. More random trades variance anyway, this is fun.
+				// 每种物品最多 20 个不同的交换报价。数值太低会以某种方式破坏 SPT 服务端，导致交易完成时持续报客户端错误。更多的随机交易差异 = 更有趣
 				min: 10,
 				max: 20,
 			},
 			nonStackableCount: {
-				// Max 2 items availiable per individual offer. Feels nice. Loot more stuff, it might come in handy.
+				// 单个报价中每种物品最多 2 件。感觉不错。多搜刮东西，总有用得上的时候
 				min: 1,
 				max: 2,
 			},
-			// Limits maximum number of items asked for barter. Default is 2 for 1 barters max.
+			// 限制交换报价中要求的物品种类数量上限。默认为最多 2 换 1
 			itemCountMax: 2,
 		},
 		otherFleaMarketChanges: {
-			// Master Toggle for all other flea market changes below.
+			// 其他跳蚤市场选项总开关
 			enabled: true,
-			// NOT RECOMMENDED TO CHANGE, use TraderChanges options below. If option is CHANGED below, it will ALLOW selling on flea market (default is NO SELLING ON FLEA). Will allow you to sell weapons and other blocked by Softcore items like in Vanilla. Not playtested and balanced around this, not recommended to enable.
+			// 不建议修改，使用下方的 TraderChanges 选项。如果将此选项改为开启，将允许在跳蚤市场出售物品（默认禁止出售）。允许出售武器和其他被 Softcore 屏蔽的物品，如同原版。未经测试和平衡调整，不建议启用
 			sellingOnFlea: false,
-			// PMC level flea market opens at.
+			// 跳蚤市场开放的 PMC 等级
 			fleaMarketOpenAtLevel: 5,
-			// Slightly increase flea market prices to stimulate looting and crafting, instead of buying everything on flea. With barter economy and variance enabled you still get a lot of great trades lower then actual item value. Hustle!
+			// 略微提高跳蚤市场价格以鼓励搜刮和制作，而非在跳蚤购买一切。开启以物易物经济和价格浮动后，你仍然能得到大量低于实际价值的超值交易。加油倒爷！
 			fleaPricesIncreased: 1.3,
-			// Only pristine condition items are offered on flea.
+			// 跳蚤市场只上架全新状态的物品
 			fleaPristineItems: true,
-			// Be a man, don't change this. This is borderline cheating option for infinite money because of variance changes.
+			// 纯爷们别改这个。由于价格浮动机制，关闭此选项等同于无限刷钱的作弊行为
 			onlyFoundInRaidItemsAllowedForBarters: true,
 		},
 	},
 	traderChanges: {
-		// Master toggle for all trader changes below
+		// 商人选项总开关
 		enabled: true,
-		// Adjusts trader evaluations for selling items (from Prapor 50%, Therapist 63%, Ragman 62%, Jaeger 60%, Mechanic 56%, Peacekeeper 45%, Skier 49% --> Prapor 60%, Therapist 64%, Ragman 63%, Jaeger 62%, Mechanic 61%, Peacekeeper 58%, Skier 59% at loyalty level 1). Also every loyalty level will give 5% better selling evaluation so e.g. at LL4 Propor will buy items for 75% of their value.
+		// 调整商人出售物品的收购价格（1 级忠诚度时：Prapor 50%->60%，Therapist 63%->64%，Ragman 62%->63%，Jaeger 60%->62%，Mechanic 56%->61%，Peacekeeper 45%->58%，Skier 49%->59%）。每升一级忠诚度额外增加 5% 收购价，例如 LL4 Prapor 将以物品价值的 75% 收购
 		betterSalesToTraders: true,
-		// Nerfs Therapist buying categories (instead of all barter items, she buys only meds and household goods, good for trader diversity), allows Ragman to buy valuables and Skier to buy info items.
+		// 削弱 Therapist 的收购类别（不再收所有以物易物类物品，只收药品和家庭用品，增加商人差异化），允许 Ragman 收购贵重品，允许 Skier 收购信息物品
 		alternativeCategories: true,
 		pacifistFence: {
-			// To go algong with the theme of this mod, Fence also sells only pacifist items. His prices are dependant on scav karma, so at 6 karma he will sell items almost at the same price Therapist buys them from you.
+			// 与本MOD主题保持一致，Fence 也只出售和平主义物品。价格取决于 scav 业报值，6.0 业报时售价约等于 Therapist 向你收购的价格
 			enabled: true,
 			numberOfFenceOffers: 30,
 		},
-		// Rebalances costs of hideout cases to fair and resonable prices and barters. Also changes LEDX dogtag barter
+		// 重平衡藏身处容器的成本和交换，使其价格合理公平。同时修改了 LEDX 狗牌交换
 		reasonablyPricedCases: true,
-		// EXPERIMENTAL option, makes Skier use Euros for all trades, and quest rewards, mostly just for fun and diversity. Adjusts assorts and loyalty levels accordingly. Turned off by default, because needs adjusting existing profiles salesSum (you can do it manually, find TradersInfo in your %profileID%.json, and in 58330581ace78e27b8b10cee key divide salesSum by 115 without leaving the remainder), unless you start a profile with this enabled.
+		// 实验性选项：让 Skier 所有交易和任务奖励使用欧元，主要是为了趣味性和多样性。会相应调整库存和忠诚度要求。默认关闭，因为开启后需要修改已有存档的 salesSum（可手动操作：在 %profileID%.json 中找到 TradersInfo，在 58330581ace78e27b8b10cee 键下将 salesSum 除以 115，不留余数），除非从新档开始就启用
 		skierUsesEuros: true,
 		biggerLimits: {
-			// Bigger limits for buying from traders
+			// 提高从商人处购买物品的数量上限
 			enabled: true,
 			multiplier: 2.0,
 		},
 	},
 	craftingChanges: {
-		// Master toggle for all crafting changes below.
+		// 制作配方选项总开关
 		enabled: true,
-		// Major rebalance of crafting recipes balanced around components rarities, usefullness, trader prices and plain "lore" logic. Some nerfs, but a lot of huge buffs. Main idea was to make most of the crafts usefull and/or profitable.
+		// 对制作配方进行大规模重平衡，围绕组件稀有度、实用性、商人价格和纯"设定"逻辑进行调整。有削弱但更多的是大幅增强。核心理念是让大多数制作配方变得有用且/或有利可图
 		craftingRebalance: true,
-		// New custon lore-friendly and balanced crafting recipes added for 3-b-TG, Adrenaline, L1, AHF1, CALOK, Ophthalmoscope, Zagustin, Obdolbos, OLOLO.
+		// 新增符合世界观设定且平衡的自定义制作配方：3-b-TG、肾上腺素、L1、AHF1-M、CALOK-B、检眼镜、Zagustin、Obdolbos、OLOLO
 		additionalCraftingRecipes: true,
 	},
 	insuranceChanges: {
-		// Redo insurance. Make the two traders serve different purposes. Prapor in "reliable" with 80% chance, costs 25% of item value. Therapist has 60% chance, but costs only 5%, eg usefull for fast return of cheap quest loadouts or plain gambling. Also buff insurance storage time to a whole month. Also buffs the chance to keep weapon attachments to 50%.
+		// 重做保险系统，让两位商人各司其职。Prapor 定位为"可靠"选择：80% 返还率，保费 25%。Therapist 返还率 60% 但保费仅 5%，适合快速回收廉价任务装备或纯赌博。同时保险存储时间延长至一整月，保留武器配件的概率提升至 50%
 		enabled: true,
 		praporInsuranceChanges: {
 			enabled: true,
@@ -212,36 +212,36 @@
 		},
 	},
 	otherTweaks: {
-		// Master toggle for all other options below.
+		// 其他杂项选项总开关
 		enabled: true,
-		// Buff Vitality, Sniper, Surgery, MagDrills, WeaponTreatnent skills leveling (x10).
+		// 增强活力、狙击、手术、弹匣训练、武器保养技能的经验获取（x10）
 		skillExpBuffs: true,
-		// ZiD SP-81 26x75 signal pistol can be put in special slots and is not removed after death.
+		// ZiD SP-81 26x75 信号手枪可放入特殊栏位，死亡不掉落
 		signalPistolInSpecialSlots: true,
-		// Reverts BSG decision to make all items examined by default
+		// 恢复 BSG 移除的物品检视机制（所有物品初始变为未检视状态）
 		unexaminedItemsAreBack: true,
-		// Make examining of items faster, good with unexaminedItemsAreBack.
+		// 加快物品检视速度，配合 unexaminedItemsAreBack 使用效果更佳
 		fasterExamineTime: true,
-		// Removes backpack restrictions (for ammo, med, etc containers and other backpacks). Never again I'll see an unlootable medcase in 314...
+		// 移除背包限制（弹药箱、药箱等容器和其他背包可放入背包中）。再也不会看到 314 房里有个捡不起来的药箱了……
 		removeBackpackRestrictions: true,
-		// Remove discard limit for expensive items (anti-RTM measure by BSG).
+		// 移除昂贵物品的丢弃限制（BSG 反 RMT 措施）
 		removeDiscardLimit: true,
-		// Reshala always has his Golden TT.
+		// Reshala 必定携带金 TT
 		reshalaAlwaysHasGoldenTT: true,
-		// Bigger Ammo Stacks
+		// 增大弹药堆叠数量
 		biggerAmmoStacks: {
 			enabled: true,
 			stackMultiplier: 10,
-			// Fix for the bosses spawning with a hidden container full of huge ammo stacks and being overweighted. This is a janky fix to divide ammo weght by stack multiplier.
+			// 修复 Boss 生成时携带隐藏容器中大量弹药导致超重的问题。这是一个简易修复，将弹药重量除以堆叠倍率
 			botAmmoStackFix: true,
 		},
-		// Better start for quests (Crisis). 5 times lower requirments for Drip-Out quests.
+		// 优化任务起步体验（Crisis）。Drip-Out 系列任务要求降低 5 倍
 		questChanges: true,
-		// removeRaidItemLimits
+		// 移除进图物品携带限制
 		removeRaidItemLimits: true,
-		// Rubles stack to 1kk, Euro and Dollars to 100k, GP to 100.
+		// 卢布堆叠至 100 万，欧元和美元堆叠至 10 万，GP 币堆叠至 100
 		biggerCurrencyStacks: true,
-		// Allow 1x1 cases (DOGTAG_CASE, INJECTOR_CASE, KEY_TOOL, KEYCARD_HOLDER_CASE, SIMPLE_WALLET, WZ_WALLET) in special slots.
+		// 允许 1x1 小型容器（狗牌包、注射器包、钥匙工具、门禁卡包、简易钱包、WZ 钱包）放入特殊栏位
 		smallContainersInSpecialSlots: true,
 	},
 }

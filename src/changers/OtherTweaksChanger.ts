@@ -1,8 +1,5 @@
 import { DependencyContainer } from "tsyringe"
-import { DatabaseServer } from "@spt/servers/DatabaseServer"
 import { OtherTweaks } from "../types"
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables"
-import { PrefixLogger } from "../util/PrefixLogger"
 import { ItemTpl } from "@spt/models/enums/ItemTpl"
 import { ItemType } from "@spt/models/eft/common/tables/ITemplateItem"
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem"
@@ -10,22 +7,16 @@ import { BaseClasses } from "@spt/models/enums/BaseClasses"
 import { ConfigServer } from "@spt/servers/ConfigServer"
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes"
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig"
+import { BaseChanger } from "./BaseChanger"
 
-import { log } from "node:console"
-
-export class OtherTweaksChanger {
-	private logger: PrefixLogger
-	private tables: IDatabaseTables
+export class OtherTweaksChanger extends BaseChanger {
 	private items: Record<string, ITemplateItem> | undefined
 	private botConfig: IBotConfig
 
 	constructor(container: DependencyContainer) {
-		this.logger = PrefixLogger.getInstance()
-		const databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		const configServer = container.resolve<ConfigServer>("ConfigServer")
-		this.tables = databaseServer.getTables()
+		super(container)
 		this.items = this.tables.templates?.items
-		this.botConfig = configServer.getConfig<IBotConfig>(ConfigTypes.BOT)
+		this.botConfig = container.resolve<ConfigServer>("ConfigServer").getConfig<IBotConfig>(ConfigTypes.BOT)
 	}
 
 	public apply(config: OtherTweaks) {
@@ -52,20 +43,11 @@ export class OtherTweaksChanger {
 		}
 
 		try {
-			if (config.unexaminedItemsAreBack) {
-				this.doUnexaminedItemsAreBack()
+			if (config.unexaminedItemsAreBack || config.fasterExamineTime || config.removeDiscardLimit) {
+				this.doItemLevelTweaks(config)
 			}
 		} catch (error) {
-			this.logger.warning("OtherTweaks: doUnexaminedItemsAreBack failed gracefully. Send bug report. Continue safely.")
-			console.warn(error)
-		}
-
-		try {
-			if (config.fasterExamineTime) {
-				this.doFasterExamineTime()
-			}
-		} catch (error) {
-			this.logger.warning("OtherTweaks: doFasterExamineTime failed gracefully. Send bug report. Continue safely.")
+			this.logger.warning("OtherTweaks: doItemLevelTweaks failed gracefully. Send bug report. Continue safely.")
 			console.warn(error)
 		}
 
@@ -75,15 +57,6 @@ export class OtherTweaksChanger {
 			}
 		} catch (error) {
 			this.logger.warning("OtherTweaks: doRemoveBackpackRestrictions failed gracefully. Send bug report. Continue safely.")
-			console.warn(error)
-		}
-
-		try {
-			if (config.removeDiscardLimit) {
-				this.doRemoveDiscardLimit()
-			}
-		} catch (error) {
-			this.logger.warning("OtherTweaks: doRemoveDiscardLimit failed gracefully. Send bug report. Continue safely.")
 			console.warn(error)
 		}
 
@@ -137,7 +110,7 @@ export class OtherTweaksChanger {
 				this.doSmallContainersInSpecialSlots()
 			}
 		} catch (error) {
-			this.logger.warning("OtherTweaks: doCurrencyStack failed gracefully. Send bug report. Continue safely.")
+			this.logger.warning("OtherTweaks: doSmallContainersInSpecialSlots failed gracefully. Send bug report. Continue safely.")
 			console.warn(error)
 		}
 	}
@@ -157,36 +130,38 @@ export class OtherTweaksChanger {
 		this.pushToSpecialSlots(ItemTpl.SIGNALPISTOL_ZID_SP81_26X75_SIGNAL_PISTOL)
 	}
 
-	doUnexaminedItemsAreBack() {
+	private doItemLevelTweaks(config: OtherTweaks) {
 		if (!this.items) {
-			this.logger.warning("OtherTweaksChanger: doFasterExamineTime: items not found")
+			this.logger.warning("OtherTweaksChanger: doItemLevelTweaks: items not found")
 			return
 		}
-		for (const item of Object.values(this.items)) {
-			if (
-				item._parent === BaseClasses.BUILT_IN_INSERTS ||
-				item._parent === BaseClasses.MAGAZINE ||
-				item._parent === BaseClasses.CYLINDER_MAGAZINE ||
-				item._parent === BaseClasses.ARMOR_PLATE ||
-				item._id === "6662e9aca7e0b43baa3d5f74" || 
-				item._id === "6662e9cda7e0b43baa3d5f76" || 
-				item._id === "6662e9f37fa79a6d83730fa0" || 
-				item._id === "6662ea05f6259762c56f3189" ||
-				item._id === "59f32c3b86f77472a31742f0" ||
-				item._id === "59f32bb586f774757e1e8442"
-			) {
-				continue
-			}
-			if (item._props.ExaminedByDefault) {
-				item._props.ExaminedByDefault = false
-			}
-		}
-	}
 
-	doFasterExamineTime() {
+		const skipUnexaminedParents = new Set([
+			BaseClasses.BUILT_IN_INSERTS,
+			BaseClasses.MAGAZINE,
+			BaseClasses.CYLINDER_MAGAZINE,
+			BaseClasses.ARMOR_PLATE,
+		])
+		const skipUnexaminedIDs = new Set([
+			"6662e9aca7e0b43baa3d5f74",
+			"6662e9cda7e0b43baa3d5f76",
+			"6662e9f37fa79a6d83730fa0",
+			"6662ea05f6259762c56f3189",
+			"59f32c3b86f77472a31742f0",
+			"59f32bb586f774757e1e8442",
+		])
+
 		for (const item of Object.values(this.items)) {
-			if (item._props.ExamineTime) {
+			if (config.unexaminedItemsAreBack) {
+				if (!skipUnexaminedParents.has(item._parent) && !skipUnexaminedIDs.has(item._id) && item._props.ExaminedByDefault) {
+					item._props.ExaminedByDefault = false
+				}
+			}
+			if (config.fasterExamineTime && item._props.ExamineTime) {
 				item._props.ExamineTime = 0.2
+			}
+			if (config.removeDiscardLimit && item._type === ItemType.ITEM) {
+				item._props.DiscardLimit = -1
 			}
 		}
 	}
@@ -207,14 +182,6 @@ export class OtherTweaksChanger {
 		}
 	}
 
-	doRemoveDiscardLimit() {
-		for (const item of Object.values(this.items)) {
-			if (item._type === ItemType.ITEM) {
-				item._props.DiscardLimit = -1
-			}
-		}
-	}
-
 	doReshalaAlwaysHasGoldenTT() {
 		const reshala = this.tables.bots!.types.bossbully
 		reshala.chances.equipment.Holster = 100
@@ -225,10 +192,10 @@ export class OtherTweaksChanger {
 		for (const item of Object.values(this.items)) {
 			if (item._parent === BaseClasses.AMMO && item._props.StackMaxSize) {
 				item._props.StackMaxSize *= stackMultiplier
-				if (botAmmoStackFix) {
-					this.botConfig.secureContainerAmmoStackCount = Math.round(this.botConfig.secureContainerAmmoStackCount / stackMultiplier)
-				}
 			}
+		}
+		if (botAmmoStackFix) {
+			this.botConfig.secureContainerAmmoStackCount = Math.round(this.botConfig.secureContainerAmmoStackCount / stackMultiplier)
 		}
 	}
 

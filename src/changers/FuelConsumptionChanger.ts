@@ -1,18 +1,10 @@
 import { DependencyContainer } from "tsyringe"
-import { DatabaseServer } from "@spt/servers/DatabaseServer"
 import { FuelConsumption } from "../types"
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables"
-import { PrefixLogger } from "../util/PrefixLogger"
+import { BaseChanger } from "./BaseChanger"
 
-export class FuelConsumptionChanger {
-	private logger: PrefixLogger
-	private databaseServer: DatabaseServer
-	private tables: IDatabaseTables
-
+export class FuelConsumptionChanger extends BaseChanger {
 	constructor(container: DependencyContainer) {
-		this.logger = PrefixLogger.getInstance()
-		this.databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		this.tables = this.databaseServer.getTables()
+		super(container)
 	}
 
 	public apply(config: FuelConsumption) {

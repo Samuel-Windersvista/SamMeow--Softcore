@@ -21,7 +21,7 @@ class Softcore implements IPostDBLoadMod, IPreSptLoadMod {
 			this.logger = PrefixLogger.getInstance(container)
 		} catch (error) {
 			const logger = container.resolve<ILogger>("WinstonLogger")
-			logger.error("[Softcore]: ${error.message}, stopping mod")
+			logger.error(`[Softcore]: ${error.message}, stopping mod`)
 			return
 		}
 
@@ -29,7 +29,7 @@ class Softcore implements IPostDBLoadMod, IPreSptLoadMod {
 			this.config = new ConfigServer().loadConfig().getConfig()
 		} catch (error) {
 			this.config = null
-			this.logger.error("ConfigServer: ${error.message}")
+			this.logger.error(`ConfigServer: ${error.message}`)
 		}
 
 		// Can stop if config is either null or not initialized

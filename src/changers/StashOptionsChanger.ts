@@ -1,24 +1,17 @@
 import { DependencyContainer } from "tsyringe"
-import { DatabaseServer } from "@spt/servers/DatabaseServer"
 import { StashOptions } from "../types"
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables"
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem"
 import { ItemTpl } from "@spt/models/enums/ItemTpl"
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas"
 import { Money } from "@spt/models/enums/Money"
 import { IProfileSides } from "@spt/models/eft/common/tables/IProfileTemplate"
-import { PrefixLogger } from "../util/PrefixLogger"
+import { BaseChanger } from "./BaseChanger"
 
-export class StashOptionsChanger {
-	private logger: PrefixLogger
-	private databaseServer: DatabaseServer
-	private tables: IDatabaseTables
+export class StashOptionsChanger extends BaseChanger {
 	private items: Record<string, ITemplateItem> | undefined
 
 	constructor(container: DependencyContainer) {
-		this.logger = PrefixLogger.getInstance()
-		this.databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		this.tables = this.databaseServer.getTables()
+		super(container)
 		this.items = this.tables.templates?.items
 	}
 

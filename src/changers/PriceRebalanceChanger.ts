@@ -1,20 +1,14 @@
 import { DependencyContainer } from "tsyringe"
-import { DatabaseServer } from "@spt/servers/DatabaseServer"
 import { PriceRebalance } from "../types"
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables"
-import { PrefixLogger } from "../util/PrefixLogger"
 import { ItemTpl } from "@spt/models/enums/ItemTpl"
 import { HandbookHelper } from "@spt/helpers/HandbookHelper"
+import { BaseChanger } from "./BaseChanger"
 
-export class PriceRebalanceChanger {
-	private logger: PrefixLogger
-	private tables: IDatabaseTables
+export class PriceRebalanceChanger extends BaseChanger {
 	private handbookHelper: HandbookHelper
 
 	constructor(container: DependencyContainer) {
-		this.logger = PrefixLogger.getInstance()
-		const databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		this.tables = databaseServer.getTables()
+		super(container)
 		this.handbookHelper = container.resolve<HandbookHelper>("HandbookHelper")
 	}
 

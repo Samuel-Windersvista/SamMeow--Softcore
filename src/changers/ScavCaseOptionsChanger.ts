@@ -75,90 +75,69 @@ export class ScavCaseOptionsChanger {
 
 	private doBetterRewards() {
 		// Set of all buyable items
-		const buyableitems = new Set()
+		const buyableitems = new Set<string>()
 		const traderlist = this.tables.traders
-		const items = this.tables.templates!.items
+		const templatesItems = this.tables.templates!.items
 		const handbook = this.tables.templates!.handbook
 
-		for (const [_, trader] of Object.entries(traderlist)) {
-			if (_ === Traders.LIGHTHOUSEKEEPER) {
+		for (const [traderID, trader] of Object.entries(traderlist)) {
+			if (traderID === Traders.LIGHTHOUSEKEEPER) {
 				continue
 			}
-			const items = trader.assort?.items
-			if (!items) {
-				this.logger.warning(`ScavCaseOptionsChanger: doBetterRewards: trader.assort.items for trader ${_} not found`)
-				return
+			const assortItems = trader.assort?.items
+			if (!assortItems) {
+				this.logger.warning(`ScavCaseOptionsChanger: doBetterRewards: trader.assort.items for trader ${traderID} not found`)
+				continue
 			}
-			items.filter((x) => this.tables.templates?.items[x._tpl]?._parent !== "65649eb40bf0ed77b8044453").map((x) => buyableitems.add(x._tpl)) // ignore armor incerts
+			for (const x of assortItems) {
+				if (templatesItems[x._tpl]?._parent !== "65649eb40bf0ed77b8044453") {
+					buyableitems.add(x._tpl)
+				}
+			}
 		}
-		// Shitlist generator for scav case rewards. Filters A LOT of crap out, but very conservatevely. Blacklist included in ./docs folder check it out.
-		// Always includes items in carefully curated whitelist. Always includes unbuyable and/or cheap items not included in whitelist (such as anodized red gear, but also some crap like scav only hats). Always includes items worth > 10000. Filters everything else out. Spent a lot of time thinking about this, really proud of myself. In the end, just makes sure you almost always get something of valuable or usable.
 
-		// this.scavCaseConfig.rewardItemParentBlacklist.forEach((x) => console.log(`"${x}", // ${this.tables.locales?.global.en[`${x} Name`]}`))
 		this.scavCaseConfig.rewardItemParentBlacklist = [
 			// stock:
 			"5485a8684bdc2da71d8b4567", // Ammo
 			"543be5dd4bdc2deb348b4569", // Money
-			// "55802f4a4bdc2ddb688b4569", // Essential mod
 			"5448bf274bdc2dfc2f8b456a", // Port. container
 			"5d52cc5ba4b9367408500062", // AGS-30 30x29mm automatic grenade launcher
 			"62f109593b54472778797866", // RandomLootContainer
 			"65649eb40bf0ed77b8044453", // BuiltInInserts
 		]
 
-		for (const i in items) {
-			const item = items[i]
-			if (item._type === "Item") {
-				//	if (debug) {
-				//		item._props.ExaminedByDefault = true // For my sanity
-				//	}
-				let handbookPrice = this.handbookHelper.getTemplatePrice(item._id)
+		for (const item of Object.values(templatesItems)) {
+			if (item._type !== "Item") {
+				continue
+			}
 
-				if (item._parent === "543be5cb4bdc2deb348b4568") {
-					try {
-						// Ammo boxes price patch/fix, their data in handbook is always 1k, this makes them valued as ammo*count they contain.
-						const count = item._props?.StackSlots[0]?._max_count
-						const ammo = item._props?.StackSlots[0]?._props?.filters[0].Filter[0]
+			let handbookPrice = this.handbookHelper.getTemplatePrice(item._id)
 
+			// Ammo boxes price patch - their data in handbook is always 1k
+			if (item._parent === "543be5cb4bdc2deb348b4568") {
+				try {
+					const count = item._props?.StackSlots?.[0]?._max_count
+					const ammo = item._props?.StackSlots?.[0]?._props?.filters?.[0]?.Filter?.[0]
+					if (count && ammo) {
 						const value = Math.round(this.handbookHelper.getTemplatePrice(ammo) * count)
 						handbookPrice = value
-
 						const ammoboxHandbook = handbook.Items.find((x) => x.Id === item._id)
-						ammoboxHandbook.Price = value
-						// console.log(`${item._id}, // ${this.tables.locales?.global.en[`${item._id} Name`]}: ${handbook.Items.find((x) => x.Id == item._id)!.Price}`)
-					} catch (error) {
-						this.logger.warning(
-							"handbook.Items.find((x) => x.Id == item._id).Price = value function failed. Ignore this error safely and continue. Send bug report."
-						)
-						this.logger.warning(error)
+						if (ammoboxHandbook) {
+							ammoboxHandbook.Price = value
+						}
 					}
+				} catch (error) {
+					this.logger.warning("Ammo box price fix failed for item. Ignore and continue.")
 				}
+			}
 
-				if (
-					this.scavCaseItemFilter(item._id) &&
-					(!buyableitems.has(item._id) || handbookPrice >= 10000 || scavcaseWhitelist.includes(item._parent))
-					// && !scavcaseConfig.rewardItemParentBlacklist.includes(item._parent) // [Debug] not actually needed, used only for reference when generating black/whitelists. Ignore(? TODO: look into it) ammo and money here, they are a special case in SPI-AKI logic.
-				) {
-					// whitelist here, do nothing.
-					//	if (debug) {
-					//		// scavWhitelist.push(item._id) // [Debug] used for debug code below
-					//		console.log(
-					//			`"${item._parent}", // ${items[item._parent]._name} --- "${item._id}", // ${
-					//				this.tables.locales?.global.en[`${item._id} Name`]
-					//			}: ${this.handbookHelper.getTemplatePrice(item._id)}, `
-					//		)
-					//	}
-				} else {
-					this.scavCaseConfig.rewardItemBlacklist.push(item._id)
-					// shitlist here.
-					//	if (debug) {
-					//		console.log(
-					//			`"${item._parent}", // ${items[item._parent]._name} --- "${item._id}", // ${
-					//				this.tables.locales?.global.en[`${item._id} Name`]
-					//			}: ${this.handbookHelper.getTemplatePrice(item._id)}, `
-					//		)
-					//	}
-				}
+			if (
+				this.scavCaseItemFilter(item._id) &&
+				(!buyableitems.has(item._id) || handbookPrice >= 10000 || scavcaseWhitelist.includes(item._parent))
+			) {
+				// whitelisted, do nothing
+			} else {
+				this.scavCaseConfig.rewardItemBlacklist.push(item._id)
 			}
 		}
 	}

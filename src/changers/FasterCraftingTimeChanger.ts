@@ -1,24 +1,17 @@
 import { DependencyContainer } from "tsyringe"
-import { DatabaseServer } from "@spt/servers/DatabaseServer"
 import { FasterCraftingTime } from "../types"
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables"
 import { ItemTpl } from "@spt/models/enums/ItemTpl"
 import { ConfigServer } from "@spt/servers/ConfigServer"
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig"
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes"
-import { PrefixLogger } from "../util/PrefixLogger"
+import { BaseChanger } from "./BaseChanger"
 
-export class FasterCraftingTimeChanger {
-	private logger: PrefixLogger
-	private tables: IDatabaseTables
+export class FasterCraftingTimeChanger extends BaseChanger {
 	private hideoutConfig: IHideoutConfig
 
 	constructor(container: DependencyContainer) {
-		this.logger = PrefixLogger.getInstance()
-		const databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		const configServer = container.resolve<ConfigServer>("ConfigServer")
-		this.tables = databaseServer.getTables()
-		this.hideoutConfig = configServer.getConfig<IHideoutConfig>(ConfigTypes.HIDEOUT)
+		super(container)
+		this.hideoutConfig = container.resolve<ConfigServer>("ConfigServer").getConfig<IHideoutConfig>(ConfigTypes.HIDEOUT)
 	}
 
 	public apply(config: FasterCraftingTime) {

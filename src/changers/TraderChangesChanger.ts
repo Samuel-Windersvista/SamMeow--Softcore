@@ -116,13 +116,12 @@ export class TraderChangesChanger {
 		}
 
 		for (const [trader, traderID] of Object.entries(this.stacticTraderList)) {
-			let buyPriceCoef = 35
 			if (!Object.keys(buyPriceAdjustment).includes(traderID)) {
 				continue
 			}
+			let buyPriceCoef = 35
 			for (const loyaltyLevel of this.tables.traders![traderID].base.loyaltyLevels) {
-				loyaltyLevel.buy_price_coef = buyPriceCoef
-				loyaltyLevel.buy_price_coef += buyPriceAdjustment[traderID]
+				loyaltyLevel.buy_price_coef = buyPriceCoef + buyPriceAdjustment[traderID]
 				buyPriceCoef -= 5
 			}
 		}
@@ -131,7 +130,7 @@ export class TraderChangesChanger {
 	private doAlternativeCategories() {
 		const traderList = this.tables.traders
 
-		traderList![Traders.THERAPIST].base.items_buy.category.push(...[BaseClasses.MEDICAL_SUPPLIES, BaseClasses.HOUSEHOLD_GOODS])
+		traderList![Traders.THERAPIST].base.items_buy.category.push(BaseClasses.MEDICAL_SUPPLIES, BaseClasses.HOUSEHOLD_GOODS)
 		traderList![Traders.THERAPIST].base.items_buy.category = traderList![Traders.THERAPIST].base.items_buy.category.filter(
 			(baseclass) => baseclass !== BaseClasses.BARTER_ITEM
 		)

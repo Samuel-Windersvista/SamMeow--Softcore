@@ -1,22 +1,15 @@
 import { DependencyContainer } from "tsyringe"
-import { DatabaseServer } from "@spt/servers/DatabaseServer"
 import { CraftingChanges } from "../types"
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables"
-import { PrefixLogger } from "../util/PrefixLogger"
+import { BaseChanger } from "./BaseChanger"
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas"
 import { ItemTpl } from "@spt/models/enums/ItemTpl"
 import { craftingAdjustments } from "../assets/productionAdjustments"
 import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction"
 import { additionalCraftingRecipes } from "../assets/recipes"
 
-export class CraftingChangesChanger {
-	private logger: PrefixLogger
-	private tables: IDatabaseTables
-
+export class CraftingChangesChanger extends BaseChanger {
 	constructor(container: DependencyContainer) {
-		this.logger = PrefixLogger.getInstance()
-		const databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		this.tables = databaseServer.getTables()
+		super(container)
 	}
 
 	public apply(config: CraftingChanges) {

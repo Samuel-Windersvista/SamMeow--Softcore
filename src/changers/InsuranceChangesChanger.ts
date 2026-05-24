@@ -16,9 +16,9 @@ export class InsuranceChangesChanger {
 	constructor(container: DependencyContainer) {
 		this.logger = PrefixLogger.getInstance()
 		const databaseServer = container.resolve<DatabaseServer>("DatabaseServer")
-		const ConfigServer = container.resolve<ConfigServer>("ConfigServer")
+		const configServer = container.resolve<ConfigServer>("ConfigServer")
 		this.tables = databaseServer.getTables()
-		this.insuranceConfig = ConfigServer.getConfig<IInsuranceConfig>(ConfigTypes.INSURANCE)
+		this.insuranceConfig = configServer.getConfig<IInsuranceConfig>(ConfigTypes.INSURANCE)
 	}
 
 	public apply(config: InsuranceChanges) {
